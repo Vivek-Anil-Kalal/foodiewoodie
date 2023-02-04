@@ -1,5 +1,4 @@
 import navLinks from '../constants'
-import SellerButton from './SellerButton'
 
 export const AsideNav = (props) => {
 
@@ -18,6 +17,9 @@ export const AsideNav = (props) => {
                                     props.loadComponent(link.id)
                                     props.showAsActive(link.id)
                                 }}
+
+                                loadComponent={props.loadComponent}
+
                                 activeClassName="active-class" >
                                 {link.title}
                             </li>

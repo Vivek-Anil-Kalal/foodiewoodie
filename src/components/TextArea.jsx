@@ -13,7 +13,7 @@ const TextArea = (props) => {
         />
       </div>
       <div className="right">
-        <img src={props.icon} className='w-8'/>
+        <img src={props.icon} className='w-8' alt='icon'/>
       </div>
     </div>
   )

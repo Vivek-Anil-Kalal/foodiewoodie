@@ -3,9 +3,9 @@ import InputFields from "./InputFields";
 import TextArea from "./TextArea";
 import MyButton from "./MyButton";
 
-import { arrow , shop , location , hastag , smartphone_call } from '../assets'
+import { arrow, shop, location, hastag, smartphone_call } from '../assets'
 
-const SetUpStore = () => {
+const SetUpStore = (props) => {
   return (
     <div className="bg-white h-full p-5">
       <div className="heading flex gap-5">
@@ -42,8 +42,11 @@ const SetUpStore = () => {
             placeholder="eg. 696969696969"
             icon={smartphone_call}
           />
-          <MyButton text="SetUp Store Now"/>
-          <MyButton text="List Food Items"/>
+          <MyButton text="SetUp Store Now" />
+          <MyButton text="List Food Items" loadComponent={props.loadComponent} />
+          {
+            console.log(props)
+          }
         </div>
       </div>
     </div>

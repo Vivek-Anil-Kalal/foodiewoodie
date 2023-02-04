@@ -1,5 +1,3 @@
-import { food } from "../assets"
-
 import React from 'react'
 
 const TopCat = () => {

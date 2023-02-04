@@ -17,6 +17,7 @@ import searchIcon from './searchIcon.png'
 import shop from './shop.png'
 import smartphone_call from './smartphone_call.png'
 import food from './food.png'
+import money from './money.png'
 
 export {
     FoodieeWoodiee ,
@@ -38,4 +39,5 @@ export {
     shop ,
     smartphone_call ,
     food ,
+    money ,
 };

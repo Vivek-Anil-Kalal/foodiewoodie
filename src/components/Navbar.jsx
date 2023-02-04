@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { FoodieeWoodiee, google, magnifying_glass, menuOpen, menuClose } from '../assets'
 import './navbar.css'
 import navLinks from '../constants'
-import SellerButton from './SellerButton'
 
 const Navbar = (props) => {
 
@@ -51,6 +50,9 @@ const Navbar = (props) => {
                     props.loadComponent(link.id)
                     props.showAsActive(link.id)
                   }}
+
+                  loadComponent={props.loadComponent}
+                  
                   activeClassName="active-class">
                   {link.title}
                 </li>

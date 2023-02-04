@@ -1,5 +1,5 @@
 import React from 'react'
-import { MyOrders , MyProfile , SetUpStore , Nothing , Home } from './index';
+import { MyOrders , MyProfile , SetUpStore , Nothing , Home , ListFoodItems } from './index';
 
 export const MainContent = (props) => {
 
@@ -8,7 +8,8 @@ export const MainContent = (props) => {
     'myorders': <MyOrders /> ,
     'myprofile' : <MyProfile /> ,
     'setupstore' : <SetUpStore /> ,
-    'nothing' : <Nothing />
+    'nothing' : <Nothing /> ,
+    'listfooditems' : <ListFoodItems />
   }
 
   return (
