@@ -1,8 +1,16 @@
-import React from "react";
+import React , { useState }from "react";
 import FilterChips from "./FilterChips";
+
+
 
 const QuickActionBar = () => {
   var filterList = ["Gujarati", "Punjabi", "Chineese", "Fast Food"];
+  
+  const [activeCategory , setActiveCategory ] = useState('');
+  
+  const changeActiveCategory = ( item ) => {
+    setActiveCategory(item)
+  }
 
   return (
     <div className="bg-white h-full w-[500px] flex flex-col justify-center items-center drop-shadow">
@@ -15,7 +23,7 @@ const QuickActionBar = () => {
         <div className="flex flex-wrap items-center justify-center">
 
           {filterList.map((item) => (
-            <FilterChips text={item} />
+            <FilterChips text={item} activeCategory={activeCategory} changeActiveCategory={changeActiveCategory} />
           ))
           }
         </div>

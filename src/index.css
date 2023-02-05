@@ -40,3 +40,7 @@ body {
       transform: scaleY(1)
   }
 }
+
+.custom-bg-black {
+  background: #000000;
+}

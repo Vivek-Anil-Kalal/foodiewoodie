@@ -1,11 +1,44 @@
 import React, { useState } from 'react'
-import { FoodieeWoodiee, google, magnifying_glass, menuOpen, menuClose } from '../assets'
+import { FoodieeWoodiee, google, magnifying_glass, menuOpen, menuClose, logout } from '../assets'
+import { auth, provider, db } from '../firebase'
+import { signInWithPopup } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
 import './navbar.css'
 import navLinks from '../constants'
 
 const Navbar = (props) => {
 
   const [toggle, setToggle] = useState(false);
+  const [value, setValue] = useState('');
+
+  const handleGoogleAuth = async () => {
+    signInWithPopup(auth, provider).then((data) => {
+      setValue(data);
+      console.log(value);
+      localStorage.setItem('authUserID', data.user.uid);
+      setDoc(doc(db,'Users',data.user.uid), {
+        uid: data.user.uid,
+        userName: data.user.displayName,
+        imgUrl: data.user.photoURL,
+        mobile: data.user.phoneNumber,
+        address: "",
+        isSeller: false,
+        storeId: ""
+      }).then(() => {
+        alert('User SignedUp Successfully');
+      }).catch((e) => {
+        alert('ERROR : ' + e.message);
+      })
+    })
+  }
+
+
+  const handleLogout = async () => {
+    await auth.signOut().then(() => {
+      localStorage.removeItem('authUserID');
+      setValue("")
+    })
+  }
 
   return (
     <div className={`sm:py-3 py-2 flex justfiy-around items-center sm:flex-row flex-col relative`}>
@@ -19,9 +52,11 @@ const Navbar = (props) => {
           <img src={magnifying_glass} alt="search" className="absolute top-2.5 left-2" />
           <input type="text" name="search" className="md:min-w-[360px] w-[300px] h-[40px] bg-[#e1e1e1] rounded-[10px] pl-9 text-[18px] font-semibold " placeholder='Search' />
         </div>
-        {/*  Button */}
+        {/*  Google SignIn Button */}
         <div className="xl:block hidden flex justify-around items-center px-6">
-          <button className="min-w-[300px] h-[40px] rounded-[15px] p-2 bg-black text-white flex flex-row justify-center box-shadow text-[#FFF500]"> <img src={google} alt="google" className="w-[20px] h-[20px] flex mt-1 mr-2 " /> Login/SignUp with google</button>
+          <button onClick={localStorage.getItem('authUserID') != null ? handleLogout : handleGoogleAuth} className={`min-w-[300px] h-[40px] rounded-[15px] p-2 bg-black text-white flex flex-row justify-center box-shadow text-[#FFF500]`}>
+            <img src={localStorage.getItem('authUserID') != null ? logout : google} alt="google" className="w-[20px] h-[20px] flex mt-1 mr-2 " />{localStorage.getItem('authUserID') != null ? "LOGOUT" : "Login / SignUp With Google"}
+          </button>
         </div>
         {/* Hamburger  sm:flex absolute top-[50px] right-1*/}
         <div className="xl:hidden  p-2 rounded-[8px] mr-6 justify-end items-center border-2 border-black">
@@ -39,7 +74,7 @@ const Navbar = (props) => {
         onClick={() => setToggle((prev) => !prev)}
       >
         <div className="flex flex-column justify-center items-center text-center">
-          <ul className='list:none'>
+          <ul className='list:none text-center justify-center'>
             {
               navLinks.map((link, index) => (
                 <li key={index} className={`${index !== navLinks.length - 1 ? 'my-5' : 'my-5'} 
@@ -52,12 +87,19 @@ const Navbar = (props) => {
                   }}
 
                   loadComponent={props.loadComponent}
-                  
+
                   activeClassName="active-class">
                   {link.title}
                 </li>
               ))
             }
+            {/*  Google SignIn Button */}
+            <div className="flex justify-around items-center px-4 py-2">
+              <button onClick={localStorage.getItem('authUserID') != null ? handleLogout : handleGoogleAuth} className={`min-w-[300px] h-[40px] rounded-[15px] px-4 py-2 bg-black text-white flex flex-row justify-center box-shadow text-[#FFF500]`}>
+                <img src={localStorage.getItem('authUserID') != null ? logout : google} alt="google" className="w-[20px] h-[20px] flex mt-1 mr-2 " />{localStorage.getItem('authUserID') != null ? "LOGOUT" : "Login / SignUp With Google"}
+              </button>
+            </div>
+
           </ul>
         </div>
       </div>

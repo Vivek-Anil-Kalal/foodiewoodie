@@ -19,6 +19,8 @@ const navLinks = [
     },
 ]
 
+export const localStoreID = 'authUserID';
+
 // My Orders 
 export const orders = [
     {
@@ -52,6 +54,9 @@ export const orders = [
         img : 'food' 
     },
 ]
+
+
+export const categoryList = ["Gujarati", "Punjabi", "Chineese", "Fast Food"];
 
 
 export default navLinks  ;

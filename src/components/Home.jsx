@@ -45,7 +45,7 @@ const Home = () => {
             <div className="w-full p-2 ">
                 <h1 className="font-semibold text-3xl mt-2">Recently Added Foods</h1>
             </div>
-            <div className="flex gap-2 snap-x">
+            <div className="flex gap-2 snap-x sm:flex-row flex-col">
                 <div className="flex-1 snap-center">
                     <RecentlyAdded />
                 </div>

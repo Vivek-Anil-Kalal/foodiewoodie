@@ -8,8 +8,17 @@ const TextArea = (props) => {
         <textarea
           className="w-full bg-transparent text-black text-xl outline-none"
           type="text"
+          value={props.value}
           rows={6}
           placeholder={props.placeholder || "Enter values here"}
+          onChange={props.hint === 'Store Description' ? (e) => {
+            props.actionSetDesc(e.target.value)
+          } : props.hint === 'Store Address' ? (e) => {
+            props.actionSetAddress(e.target.value)
+          } : props.hint === 'Food Description*' ? (e) => {
+            props.changeFoodDesc(e.target.value)
+          } : ''
+        }
         />
       </div>
       <div className="right">

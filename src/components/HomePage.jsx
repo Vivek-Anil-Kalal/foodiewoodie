@@ -29,8 +29,8 @@ const HomePage = () => {
           <AsideNav loadComponent={loadComponent} showAsActive={showAsActive} activeComponent={activeComponent} />
         </div>
 
-        <div className="flex-1 w-full">
-          <MainContent load={component}  />
+        <div className="flex-1 w-full min-h-[900px]">
+          <MainContent load={component} loadComponent={loadComponent} />
         </div>
         <div className="md:flex-2 justfiy-center items-center sm:p-3 p-4 md:w-[30%] w-full">
           <QuickFilters />
