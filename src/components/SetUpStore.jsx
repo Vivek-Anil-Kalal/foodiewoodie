@@ -138,7 +138,7 @@ const SetUpStore = (props) => {
             <div className="left flex flex-col items-center">
               <label htmlFor="imgUrl"><img
                 className="w-48 h-48 m-5 rounded-[50%] cursor-pointer object-cover"
-                src={storeImg ? storeImg : "https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_6.png"}
+                src={storeImg ? URL.createObjectURL(storeImg) : "https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_6.png"}
                 alt="nothing"
               /></label>
               <input type="file" onChange={e => setStoreImg(e.target.files[0])} id="imgUrl" className="hidden" />

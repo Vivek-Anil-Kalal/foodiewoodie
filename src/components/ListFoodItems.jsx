@@ -1,44 +1,35 @@
 import React, { useState } from "react";
-import { InputFields , TextArea , FilterChips } from './index'
-import { arrow , food , hastag , money , } from '../assets'
+import { InputFields, TextArea, FilterChips } from './index'
+import { arrow, food, hastag, money, } from '../assets'
 import { storage, db } from "../firebase";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { localStoreID } from "../constants";
+import { BallTriangle } from 'react-loader-spinner'
 import Store from "../models/Store";
 
 const ListProduct = () => {
   var categoryList = ["Gujarati", "Punjabi", "Chineese", "Fast Food"];
 
-  const [activeCategory , setActiveCategory ] = useState('');
-  const [foodName , setFoodName ] = useState('');
-  const [foodPrice , setFoodPrice ] = useState('');
-  const [foodDesc , setFoodDesc ] = useState('');
-  const [foodImg,setFoodImg] = useState('')
-  const [foodCategory,setFoodCategory] = useState('')
-  const [itemData,setItemData] = useState(null);
-  const [isLoaded, setLoaded] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('');
+  const [foodName, setFoodName] = useState('');
+  const [foodPrice, setFoodPrice] = useState('');
+  const [foodDesc, setFoodDesc] = useState('');
+  const [foodImg, setFoodImg] = useState('')
+  const [foodCategory, setFoodCategory] = useState('')
+  const [isLoaded, setLoaded] = useState(true);
 
-
-  const getItemData = async () => {
-    getDoc(doc(db, 'Stores', localStorage.getItem(localStoreID)).withConverter(new Store().storeConverter)).then((snapshot) => {
-      if (snapshot.data() != null) {
-        const Data = snapshot.data();
-        console.log(Data);
-        setItemData(Data);
-        setFoodDesc(Data.foodDesc);
-        setFoodPrice(Data.foodPrice);
-        setFoodName(Data.foodName);
-        setFoodImg(Data.foodImg);
-      }
-    }).then(() => {
-    })
+  const clearValues = () => {
+    setFoodName('')
+    setFoodPrice('')
+    setFoodDesc('')
+    setFoodImg('')
+    setFoodCategory('')
   }
 
   const handleSubmit = async () => {
     const currTime = Date.now().toString();
     const itemUid = `foodieeWoodiee${currTime.substring(currTime.length - 4, currTime.length)}foodItem`;
-    
     const storageRef = ref(storage, `foodPhotos/${itemUid}`);
     setLoaded(false);
 
@@ -54,16 +45,16 @@ const ListProduct = () => {
           await setDoc(doc(db, "FoodItems", `${itemUid}${localStorage.getItem(localStoreID)}`), {
             foodName,
             foodDesc,
-            foodImg : downloadURL,
+            foodImg: downloadURL,
             foodPrice,
             foodCategory,
-            foodUid : itemUid,
-            sellerId : localStorage.getItem(localStoreID),
-            rating : 0,
-            review : []
+            foodUid: itemUid,
+            sellerId: localStorage.getItem(localStoreID),
+            rating: 0,
+            review: []
           }).then(async () => {
-            getItemData()
             setLoaded(true);
+            clearValues();
             alert("Food Item listed Successfully .");
             // toast.success('Store Created Successfully . Now u can add your food items in the store.');
           })
@@ -77,7 +68,7 @@ const ListProduct = () => {
     );
   }
 
-  const changeActiveCategory = ( item ) => {
+  const changeActiveCategory = (item) => {
     setActiveCategory(item)
   }
 
@@ -93,7 +84,7 @@ const ListProduct = () => {
     setFoodDesc(desc);
   }
 
-  const onChipClick = (cate) =>{
+  const onChipClick = (cate) => {
     setFoodCategory(cate);
   }
 
@@ -104,12 +95,13 @@ const ListProduct = () => {
         <h1 className="text-2xl font-bold">List My Food</h1>
       </div>
 
-      <div className="foodContent flex flex-col gap-5 items-center">
-        <img
+      {isLoaded ? <div className="foodContent flex flex-col gap-5 items-center">
+        <label htmlFor="takeImg"><img
           className="xl:h-72 h-48 rounded-2xl xl:w-72 w-48 m-2 object-fill cursor-pointer"
-          src="https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_6.png"
-          alt="Food_image"/>
-        <h1 className="text-black font-semibold cursor-pointer">Click To Upload Food Image</h1>
+          src={foodImg ? URL.createObjectURL(foodImg) : "https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_6.png"}
+          alt="Food_image" /></label>
+        <label htmlFor="takeImg"><p className="text-black font-semibold cursor-pointer">Click To Upload Food Image</p></label>
+        <input type="file" id="takeImg" onChange={e => setFoodImg(e.target.files[0])} className="hidden" />
         <InputFields
           hint="Food Name*"
           placeholder="Name of Food Item"
@@ -129,7 +121,7 @@ const ListProduct = () => {
 
           <div className="flex flex-wrap">
             {categoryList.map((item) => (
-              <FilterChips text={item} activeCategory={activeCategory} changeActiveCategory={changeActiveCategory} onChipClick={onChipClick}/>
+              <FilterChips text={item} activeCategory={activeCategory} changeActiveCategory={changeActiveCategory} onChipClick={onChipClick} />
             ))}
           </div>
 
@@ -142,9 +134,21 @@ const ListProduct = () => {
           value={foodPrice}
         />
         <button onClick={handleSubmit} className="bg-black w-full text-yellow-300 text-2xl py-2 rounded-xl">
-        Start Selling Food
-    </button>
+          Start Selling Food
+        </button>
+      </div> : <div className="flex justify-center items-center min-h-[700px]">
+        <BallTriangle
+          height={100}
+          width={100}
+          radius={5}
+          color="#4fa94d"
+          ariaLabel="ball-triangle-loading"
+          wrapperClass={{}}
+          wrapperStyle=""
+          visible={true}
+        />
       </div>
+      }
     </div>
   );
 };
