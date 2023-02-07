@@ -20,3 +20,5 @@ We Learned a lot about reactjs and firebase .
 
 ## What's next for foodie-woodie.eat
 we are looking forward to integrate the machine learning model in it which will provide the the suggestions to user based on his previous searches and dataset .
+
+![image](https://user-images.githubusercontent.com/100410039/217234390-52ab4eee-3aa1-443a-b11f-89e0fe5b87d5.png)
