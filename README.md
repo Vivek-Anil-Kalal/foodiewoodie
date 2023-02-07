@@ -22,3 +22,20 @@ We Learned a lot about reactjs and firebase .
 we are looking forward to integrate the machine learning model in it which will provide the the suggestions to user based on his previous searches and dataset .
 
 ![image](https://user-images.githubusercontent.com/100410039/217234390-52ab4eee-3aa1-443a-b11f-89e0fe5b87d5.png)
+
+
+
+![image](https://user-images.githubusercontent.com/100410039/217234559-b6518c7a-0533-4062-94d9-12792ecef4ff.png)
+
+
+![image](https://user-images.githubusercontent.com/100410039/217234634-0972d76f-ce0a-4e79-bd6a-47e6c3dd27f7.png)
+
+
+![image](https://user-images.githubusercontent.com/100410039/217234704-04ba3d8b-38c9-4f4a-8267-63626b5cb265.png)
+
+## Mobile Responsive
+
+![image](https://user-images.githubusercontent.com/100410039/217234918-ff91929d-fdc0-4ef3-ba93-b866fbdb5bb3.png)        ![image](https://user-images.githubusercontent.com/100410039/217235037-46cd7644-a03b-4aa0-8b2b-76b658ded36b.png)
+
+
+
